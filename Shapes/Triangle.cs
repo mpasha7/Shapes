@@ -19,21 +19,7 @@ namespace Shapes
         /// <param name="c">3-я сторона треугольника</param>
         /// /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public Triangle(double a, double b, double c)
-        {
-            try
-            {
-                CheckSides(a, b, c);
-                Sides = new double[3];
-                Sides[0] = a;
-                Sides[1] = b;
-                Sides[2] = c;
-            }
-            catch (ArgumentException)
-            {
-                throw;
-            }
-        }
+        public Triangle(double a, double b, double c) : base(a, b, c) { }
 
         /// <summary>
         /// Вычисляет площадь треугольника

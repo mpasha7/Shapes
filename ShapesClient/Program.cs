@@ -8,8 +8,8 @@ namespace ShapesClient
         {
             List<IShape> shapes = new List<IShape>
             {
-                new Circle(3),
-                new Triangle(5, 4, 5),
+                new Circle(1),
+                new Triangle(3, 4, 3),
                 new Rectangle(3, 5)         // Пример класса, наследованного от библиотечного
             };
 
@@ -20,47 +20,35 @@ namespace ShapesClient
                 if (shape is Circle circle)
                 {
                     Console.WriteLine($"Радиус: {circle.Radius}");
-                    circle.SetRadius(5);
-                    Console.WriteLine($"Новый радиус: {circle.Radius}");
+                    circle.SetRadius(2);
+                    Console.WriteLine($"\nНовый радиус: {circle.Radius}");
                 }
-                if (shape is Triangle triangle)
+                else if (shape is Polygon polygon)
                 {
                     Console.Write("Стороны:");
-                    foreach (double side in triangle.Sides)
+                    foreach (double side in polygon.Sides)
                     {
                         Console.Write($"  {side}");
                     }
-                    Console.WriteLine($"\nЯвляется прямоугольным треугольником?: {triangle.IsRight()}");
+                    if (shape is Triangle triangle)
+                        Console.WriteLine($"\nЭто прямоугольный треугольник?: {triangle.IsRight()}");
+                    else if (shape is Rectangle rectangle)
+                        Console.WriteLine($"\nЭто квадрат?: {rectangle.IsSquare()}");
 
-                    triangle.TrySetSide(0, 3);
-                    Console.Write("Новые стороны:");
-                    foreach (double side in triangle.Sides)
+                    polygon.TrySetSide(0, 5);
+                    Console.Write("\nНовые стороны:");
+                    foreach (double side in polygon.Sides)
                     {
                         Console.Write($"  {side}");
                     }
-                    Console.WriteLine($"\nЯвляется прямоугольным треугольником?: {triangle.IsRight()}");
+                    if (shape is Triangle triang)
+                        Console.WriteLine($"\nА теперь прямоугольный треугольник?: {triang.IsRight()}");
+                    else if (shape is Rectangle rectangle)
+                        Console.WriteLine($"\nА теперь квадрат?: {rectangle.IsSquare()}");
                 }
-                if (shape is Rectangle rectangle)
-                {
-                    Console.Write("Стороны:");
-                    foreach (double side in rectangle.Sides)
-                    {
-                        Console.Write($"  {side}");
-                    }
-                    Console.WriteLine($"\nЯвляется квадратом?: {rectangle.IsSquare()}");
-
-                    rectangle.TrySetSide(0, 5);
-                    Console.Write("Новые стороны:");
-                    foreach (double side in rectangle.Sides)
-                    {
-                        Console.Write($"  {side}");
-                    }
-                    Console.WriteLine($"\nЯвляется квадратом?: {rectangle.IsSquare()}");
-                }
-
                 Console.WriteLine($"Новый периметр: {shape.GetPerimeter()}");
                 Console.WriteLine($"Новая площадь: {shape.GetArea()}");
-                Console.WriteLine();
+                Console.WriteLine(new string('-', 30));
             }
 
             Console.ReadKey();

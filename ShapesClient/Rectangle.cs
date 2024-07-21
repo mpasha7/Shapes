@@ -18,16 +18,7 @@ namespace ShapesClient
         /// <param name="a">1-я сторона прямоугольника</param>
         /// <param name="b">2-я сторона прямоугольника</param>
         /// <exception cref="ArgumentException"></exception>
-        public Rectangle(double a, double b)
-        {
-            if (a <= 0 || b <= 0)
-            {
-                throw new ArgumentException("Аргумент должен быть положительным числом!");
-            }
-            Sides = new double[2];
-            Sides[0] = a;
-            Sides[1] = b;
-        }
+        public Rectangle(double a, double b) : base(a, b) { }
 
         /// <summary>
         /// Вычисляет периметр прямольника
@@ -57,23 +48,36 @@ namespace ShapesClient
         }
 
         /// <summary>
-        /// Пытается установить размер заданной стороны прямоугольника
+        /// Проверка возможности создания прямоугольника по заданным сторонам
         /// </summary>
-        /// <param name="index">Номер стороны прямоугольника</param>
-        /// <param name="value">Новый размер стороны прямоугольника</param>
+        /// <param name="sides">Массив размеров сторон прямоугольника</param>
+        /// <exception cref="ArgumentException"></exception>
+        protected override void CheckSides(params double[] sides)
+        {
+            foreach (double side in sides)
+            {
+                if (side <= 0)
+                    throw new ArgumentException("Аргумент должен быть положительным числом!", nameof(side));
+            }
+        }
+
+        /// <summary>
+        /// Проверка возможности изменения размера стороны прямоугольника
+        /// </summary>
+        /// <param name="index">Номер стороны</param>
+        /// <param name="value">Новый размер стороны</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public override void TrySetSide(int index, double value)
+        protected override void CheckSide(int index, double value)
         {
-            if (index < 0 || index > Sides.Length)
+            if (index < 0 || index >= Sides.Count)
             {
-                throw new ArgumentOutOfRangeException("index");
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
             if (value <= 0)
             {
-                throw new ArgumentException("Аргумент должен быть положительным числом!", nameof(value));
+                throw new ArgumentException($"Аргумент должен быть положительным числом!", nameof(value));
             }
-            Sides[index] = value;
         }
     }
 }

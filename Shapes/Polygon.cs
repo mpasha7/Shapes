@@ -15,7 +15,20 @@ namespace Shapes
         /// <summary>
         /// Массив сторон многоугольника
         /// </summary>
-        public double[] Sides { get; protected set; }
+        public List<double> Sides { get; protected set; }
+
+        protected Polygon(params double[] sides)
+        {
+            try
+            {
+                CheckSides(sides);
+                Sides = new List<double>(sides);
+            }
+            catch (ArgumentException)
+            {
+                throw;
+            }
+        }
 
         /// <summary>
         /// Возвращает площадь многоугольника
@@ -60,7 +73,7 @@ namespace Shapes
         /// <returns>Сумма заданных элементов массива</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArithmeticException"></exception>
-        protected double Sum(double[] values, int offset)
+        protected static double Sum(IList<double> values, int offset)
         {
             if (values == null)
             {
@@ -71,7 +84,7 @@ namespace Shapes
                 throw new ArithmeticException($"Аргумент {nameof(offset)} не может быть отрицательным числом!");
             }
             double sum = 0;
-            for (int i = 0; i < values.Length - offset; i++)
+            for (int i = 0; i < values.Count - offset; i++)
             {
                 sum += values[i];
             }
@@ -83,10 +96,17 @@ namespace Shapes
         /// </summary>
         /// <param name="values">Массив размеров сторон многоугольника</param>
         /// <exception cref="ArgumentException"></exception>
-        protected virtual void CheckSides(params double[] values)
+        protected virtual void CheckSides(params double[] sides)
         {
+            foreach (double side in sides)
+            {
+                if (side <= 0)
+                    throw new ArgumentException("Аргумент должен быть положительным числом!", nameof(side));
+            }
+
+            double[] values = sides.ToArray();
             Array.Sort(values);
-            if (Sum(values, 1) < values[2])
+            if (Sum(values, 1) < values[^1])
             {
                 throw new ArgumentException("Одна из сторон больше суммы остальных сторон!");
             }
@@ -101,7 +121,7 @@ namespace Shapes
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         protected virtual void CheckSide(int index, double value)
         {
-            if (index < 0 || index >= Sides.Length)
+            if (index < 0 || index >= Sides.Count)
             {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
@@ -109,10 +129,11 @@ namespace Shapes
             {
                 throw new ArgumentException($"Аргумент не может быть отрицательным числом!", nameof(value));
             }
+
             double[] sides = Sides.ToArray();
             sides[index] = value;
             Array.Sort(sides);
-            if (Sum(sides, 1) < sides[2])
+            if (Sum(sides, 1) < sides[^1])
             {
                 throw new ArgumentException($"Невозможно придать {index}-й стороне размер {value}!");
             }

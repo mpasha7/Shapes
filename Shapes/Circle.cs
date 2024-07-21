@@ -46,7 +46,7 @@ namespace Shapes
             }
             else
             {
-                throw new ArgumentException("Радиус круга не может быть отрицательным числом!");
+                throw new ArgumentException("Радиус круга должен быть положительным числом!");
             }
         }
 
