@@ -25,58 +25,19 @@ namespace Shapes_Tests
         [Fact]
         public void Triangle_DontTakesZeroSide()
         {
-            Triangle triangle = null;
-            bool ok = false;
-
-            try
-            {
-                triangle = new Triangle(0, 4, 5);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-
-            Assert.Null(triangle);
-            Assert.True(ok);
+            Assert.Throws<ArgumentException>(() => { Triangle triangle = new Triangle(0, 4, 5); });
         }
 
         [Fact]
         public void Triangle_DontTakesNegativeSide()
         {
-            Triangle triangle = null;
-            bool ok = false;
-
-            try
-            {
-                triangle = new Triangle(3, -4, -5);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-
-            Assert.Null(triangle);
-            Assert.True(ok);
+            Assert.Throws<ArgumentException>(() => { Triangle triangle = new Triangle(3, -4, 5); });
         }
 
         [Fact]
         public void Triangle_DontTakesTooBigSide()
         {
-            Triangle triangle = null;
-            bool ok = false;
-
-            try
-            {
-                triangle = new Triangle(3, 4, 8);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-
-            Assert.Null(triangle);
-            Assert.True(ok);
+            Assert.Throws<ArgumentException>(() => { Triangle triangle = new Triangle(3, 4, 8); });
         }
 
         [Fact]
@@ -97,100 +58,29 @@ namespace Shapes_Tests
         public void TrySetSide_DontTakesIndexOutOfRange()
         {
             Triangle triangle = new Triangle(3, 4, 5);
-            bool ok = false;
-
-            try
-            {
-                triangle.TrySetSide(-1, 10);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-            try
-            {
-                triangle.TrySetSide(3, 10);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-            var result = triangle.Sides;
-
-            Assert.NotNull(result);
-            Assert.Equal(3, result[0]);
-            Assert.Equal(4, result[1]);
-            Assert.Equal(5, result[2]);
-            Assert.True(ok);
+            Assert.Throws<ArgumentOutOfRangeException>(() => { triangle.TrySetSide(-1, 5); });
+            Assert.Throws<ArgumentOutOfRangeException>(() => { triangle.TrySetSide(3, 5); });
         }
 
         [Fact]
         public void TrySetSide_DontTakesZeroSide()
         {
-            Triangle triangle = new Triangle(3, 4, 5);
-            bool ok = false;
-
-            try
-            {
-                triangle.TrySetSide(1, 0);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-            var result = triangle.Sides;
-
-            Assert.NotNull(result);
-            Assert.Equal(3, result[0]);
-            Assert.Equal(4, result[1]);
-            Assert.Equal(5, result[2]);
-            Assert.True(ok);
+            Triangle triangle = new Triangle(1, 1, 1);
+            Assert.Throws<ArgumentException>(() => { triangle.TrySetSide(1, 0); });
         }
 
         [Fact]
         public void TrySetSide_DontTakesNegativeSide()
         {
             Triangle triangle = new Triangle(3, 4, 5);
-            bool ok = false;
-
-            try
-            {
-                triangle.TrySetSide(2, -5);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-            var result = triangle.Sides;
-
-            Assert.NotNull(result);
-            Assert.Equal(3, result[0]);
-            Assert.Equal(4, result[1]);
-            Assert.Equal(5, result[2]);
-            Assert.True(ok);
+            Assert.Throws<ArgumentException>(() => { triangle.TrySetSide(1, -5); });
         }
 
         [Fact]
         public void TrySetSide_DontTakesTooBigSide()
         {
             Triangle triangle = new Triangle(3, 4, 5);
-            bool ok = false;
-
-            try
-            {
-                triangle.TrySetSide(2, 8);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-            var result = triangle.Sides;
-
-            Assert.NotNull(result);
-            Assert.Equal(3, result[0]);
-            Assert.Equal(4, result[1]);
-            Assert.Equal(5, result[2]);
-            Assert.True(ok);
+            Assert.Throws<ArgumentException>(() => { triangle.TrySetSide(2, 8); });
         }
 
         [Fact]

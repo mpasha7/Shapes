@@ -21,39 +21,13 @@ namespace Shapes_Tests
         [Fact]
         public void Rectangle_DontTakesZeroSide()
         {
-            Rectangle rectangle = null;
-            bool ok = false;
-
-            try
-            {
-                rectangle = new Rectangle(0, 5);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-
-            Assert.Null(rectangle);
-            Assert.True(ok);
+            Assert.Throws<ArgumentException>(() => { Rectangle rectangle = new Rectangle(0, 5); });
         }
 
         [Fact]
         public void Rectangle_DontTakesNegativeSide()
         {
-            Rectangle rectangle = null;
-            bool ok = false;
-
-            try
-            {
-                rectangle = new Rectangle(2, -5);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-
-            Assert.Null(rectangle);
-            Assert.True(ok);
+            Assert.Throws<ArgumentException>(() => { Rectangle rectangle = new Rectangle(2, -5); });
         }
 
         [Fact]
@@ -73,74 +47,22 @@ namespace Shapes_Tests
         public void TrySetSide_DontTakesIndexOutOfRange()
         {
             Rectangle rectangle = new Rectangle(2, 5);
-            bool ok = false;
-
-            try
-            {
-                rectangle.TrySetSide(-1, 10);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-            try
-            {
-                rectangle.TrySetSide(2, 10);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-            var result = rectangle.Sides;
-
-            Assert.NotNull(result);
-            Assert.Equal(2, result[0]);
-            Assert.Equal(5, result[1]);
-            Assert.True(ok);
+            Assert.Throws<ArgumentOutOfRangeException>(() => { rectangle.TrySetSide(-1, 5); });
+            Assert.Throws<ArgumentOutOfRangeException>(() => { rectangle.TrySetSide(2, 5); });
         }
 
         [Fact]
         public void TrySetSide_DontTakesZeroSide()
         {
-            Rectangle rectangle = new Rectangle(2, 5);
-            bool ok = false;
-
-            try
-            {
-                rectangle.TrySetSide(1, 0);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-            var result = rectangle.Sides;
-
-            Assert.NotNull(result);
-            Assert.Equal(2, result[0]);
-            Assert.Equal(5, result[1]);
-            Assert.True(ok);
+            Rectangle rectangle = new Rectangle(1, 1);
+            Assert.Throws<ArgumentException>(() => { rectangle.TrySetSide(1, 0); });
         }
 
         [Fact]
         public void TrySetSide_DontTakesNegativeSide()
         {
             Rectangle rectangle = new Rectangle(2, 5);
-            bool ok = false;
-
-            try
-            {
-                rectangle.TrySetSide(1, -2);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-            var result = rectangle.Sides;
-
-            Assert.NotNull(result);
-            Assert.Equal(2, result[0]);
-            Assert.Equal(5, result[1]);
-            Assert.True(ok);
+            Assert.Throws<ArgumentException>(() => { rectangle.TrySetSide(1, -2); });
         }
 
         [Fact]

@@ -60,7 +60,7 @@ namespace Shapes
         }
 
         /// <summary>
-        /// Вычисляет длину окружности круга
+        /// Вычисляет длину периметра круга (окружности)
         /// </summary>
         /// <returns>Длина окружности круга</returns>
         public virtual double GetPerimeter()

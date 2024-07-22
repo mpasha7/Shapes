@@ -17,6 +17,11 @@ namespace Shapes
         /// </summary>
         public List<double> Sides { get; protected set; }
 
+        /// <summary>
+        /// Инициирует объект класса Polygon по его сторонам (абстрактно)
+        /// </summary>
+        /// <param name="sides">Стороны многоугольника</param>
+        /// <exception cref="ArgumentException"></exception>
         protected Polygon(params double[] sides)
         {
             try
@@ -66,13 +71,13 @@ namespace Shapes
         }
 
         /// <summary>
-        /// Вычисляет сумму элементов массива без учета последних offset
+        /// Вычисляет сумму элементов массива без учета последних offset элементов
         /// </summary>
         /// <param name="values">Массив элементов</param>
         /// <param name="offset">Количество неучитываемых элементов в конце массива</param>
         /// <returns>Сумма заданных элементов массива</returns>
         /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArithmeticException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         protected static double Sum(IList<double> values, int offset)
         {
             if (values == null)
@@ -81,7 +86,7 @@ namespace Shapes
             }
             if (offset < 0)
             {
-                throw new ArithmeticException($"Аргумент {nameof(offset)} не может быть отрицательным числом!");
+                throw new ArgumentException($"Аргумент {nameof(offset)} не может быть отрицательным числом!");
             }
             double sum = 0;
             for (int i = 0; i < values.Count - offset; i++)
@@ -101,7 +106,7 @@ namespace Shapes
             foreach (double side in sides)
             {
                 if (side <= 0)
-                    throw new ArgumentException("Аргумент должен быть положительным числом!", nameof(side));
+                    throw new ArgumentException("Сторона многоугольника должна быть положительным числом!", nameof(side));
             }
 
             double[] values = sides.ToArray();
@@ -125,9 +130,9 @@ namespace Shapes
             {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
-            if (value < 0)
+            if (value <= 0)
             {
-                throw new ArgumentException($"Аргумент не может быть отрицательным числом!", nameof(value));
+                throw new ArgumentException($"Сторона многоугольника должна быть положительным числом!", nameof(value));
             }
 
             double[] sides = Sides.ToArray();

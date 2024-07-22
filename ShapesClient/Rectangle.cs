@@ -13,10 +13,10 @@ namespace ShapesClient
     public class Rectangle : Polygon
     {
         /// <summary>
-        /// Инициирует объект класса Rectangle по трем его сторонам
+        /// Инициирует объект класса Rectangle по его ширине и высоте
         /// </summary>
-        /// <param name="a">1-я сторона прямоугольника</param>
-        /// <param name="b">2-я сторона прямоугольника</param>
+        /// <param name="a">Ширина прямоугольника</param>
+        /// <param name="b">Высота прямоугольника</param>
         /// <exception cref="ArgumentException"></exception>
         public Rectangle(double a, double b) : base(a, b) { }
 
@@ -39,7 +39,7 @@ namespace ShapesClient
         }
 
         /// <summary>
-        /// Является ли прямоугольник квадратом
+        /// Проверяет, является ли прямоугольник квадратом
         /// </summary>
         /// <returns></returns>
         public bool IsSquare()

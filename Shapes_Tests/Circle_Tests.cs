@@ -22,39 +22,13 @@ namespace Shapes_Tests
         [Fact]
         public void Circle_DontTakesZeroRadius()
         {
-            Circle circle = null;
-            bool ok = false;
-
-            try
-            {
-                circle = new Circle(0);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-
-            Assert.Null(circle);
-            Assert.True(ok);
+            Assert.Throws<ArgumentException>(() => { Circle circle = new Circle(0); });
         }
 
         [Fact]
         public void Circle_DontTakesNegativeRadius()
         {
-            Circle circle = null;
-            bool ok = false;
-
-            try
-            {
-                circle = new Circle(-1);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-
-            Assert.Null(circle);
-            Assert.True(ok);
+            Assert.Throws<ArgumentException>(() => { Circle circle = new Circle(-1); });
         }
 
         [Fact]
@@ -72,40 +46,14 @@ namespace Shapes_Tests
         public void SetRadius_DontTakesZeroRadius()
         {
             Circle circle = new Circle(1);
-            bool ok = false;
-
-            try
-            {
-                circle.SetRadius(0);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-            var result = circle.Radius;
-
-            Assert.Equal(1, result);
-            Assert.True(ok);
+            Assert.Throws<ArgumentException>(() => { circle.SetRadius(0); });
         }
 
         [Fact]
         public void SetRadius_DontTakesNegativeRadius()
         {
             Circle circle = new Circle(1);
-            bool ok = false;
-
-            try
-            {
-                circle.SetRadius(-1);
-            }
-            catch (Exception)
-            {
-                ok = true;
-            }
-            var result = circle.Radius;
-
-            Assert.Equal(1, result);
-            Assert.True(ok);
+            Assert.Throws<ArgumentException>(() => { circle.SetRadius(-1); });
         }
 
         [Fact]

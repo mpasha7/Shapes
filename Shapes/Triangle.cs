@@ -17,7 +17,6 @@ namespace Shapes
         /// <param name="a">1-я сторона треугольника</param>
         /// <param name="b">2-я сторона треугольника</param>
         /// <param name="c">3-я сторона треугольника</param>
-        /// /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <exception cref="ArgumentException"></exception>
         public Triangle(double a, double b, double c) : base(a, b, c) { }
 
@@ -32,7 +31,7 @@ namespace Shapes
         }
 
         /// <summary>
-        /// Является ли треугольник прямоугольным
+        /// Проверяет, является ли треугольник прямоугольным
         /// </summary>
         /// <returns></returns>
         public bool IsRight()
